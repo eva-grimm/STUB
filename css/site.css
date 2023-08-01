@@ -82,7 +82,7 @@ body {
     --bs-btn-hover-bg: var(--ce-accent-250);
     --bs-btn-hover-border-color: var(--ce-accent-250);
     --bs-btn-active-bg: var(--ce-accent-400);
-    --bs-btn-active-border-color: var(--ce-accent-400)
+    --bs-btn-active-border-color: var(--ce-accent-400);
 }
 
 .devicons {

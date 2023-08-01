@@ -64,15 +64,6 @@ const events = [
     },
 ];
 
-function getEvents() {
-    let storedEvents = JSON.parse(localStorage.getItem('stub-events') || '[]');
-    if (storedEvents.length == 0) {
-        storeEvents = events;
-        localStorage.setItem('stub-events', JSON.stringify(events));
-    }
-    return storedEvents
-}
-
 function buildDropdown() {
     let currentEvents = getEvents();
     let eventCities = currentEvents.map(event => event.city)
@@ -89,8 +80,17 @@ function buildDropdown() {
     });
 
     document.getElementById('stats-location').innerText = 'All';
-    displayEvents(currentEvents);
     displayStats(currentEvents);
+    displayEvents(currentEvents);
+}
+
+function getEvents() {
+    let storedEvents = JSON.parse(localStorage.getItem('stub-events') || '[]');
+    if (storedEvents.length == 0) {
+        storedEvents = events;
+        localStorage.setItem('stub-events', JSON.stringify(events));
+    }
+    return storedEvents;
 }
 
 function displayEvents(events) {
@@ -100,10 +100,10 @@ function displayEvents(events) {
 
     events.forEach(event => {
         let tableRowCopy = tableRowTemplate.content.cloneNode(true);
-        Object.keys(event).forEach(key => {
-            let value = event[key].toLocaleString();
-            key == 'date' ? value = new Date(event[key]).toLocaleDateString() : '';
-            tableRowCopy.querySelector(`[data-id="${key}"]`).innerText = value;
+        Object.keys(event).forEach(property => {
+            let value = event[property].toLocaleString();
+            property == 'date' ? value = new Date(event[property]).toLocaleDateString() : '';
+            tableRowCopy.querySelector(`[data-id="${property}"]`).innerText = value;
         });
         eventsTable.appendChild(tableRowCopy)
     });
@@ -137,13 +137,13 @@ function filterEvents(dropdownItemClicked) {
 function saveEvent() {
     let event = document.getElementById('newEventName').value;
     let city = document.getElementById('newEventCity').value;
+    let attendance = parseInt(document.getElementById('newEventAttendance').value);
 
     let stateSelect = document.getElementById('newEventState');
     let selectedIndex = stateSelect.selectedIndex;
     let selectedOption = stateSelect.options[selectedIndex];
     let state = selectedOption.text;
 
-    let attendance = parseInt(document.getElementById('newEventAttendance').value);
     let dateString = `${document.getElementById('newEventDate').value} 00:00`;
     let date = new Date(dateString).toLocaleDateString();
 
@@ -151,6 +151,13 @@ function saveEvent() {
     let allEvents = getEvents();
     allEvents.push(newEvent);
     localStorage.setItem('stub-events', JSON.stringify(allEvents));
+
     document.getElementById('newEventForm').reset();
     buildDropdown();
+    closeModal();
+}
+
+function closeModal() {
+    let modal = bootstrap.Modal.getInstance(document.getElementById('addEventModal'))
+    modal.hide();
 }
