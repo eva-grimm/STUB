@@ -1,16 +1,23 @@
-<p>This applet is a test of using local storage for tracking events and populating menus and tables. It is structured with two templates and one modal in HTML, which are used and populated by seven functions. It additionally has an eventListener in the app HTML. A basic array of events is hard coded, so the page is not empty upon first load. Let's dive in.</p>
+<p>
+This applet is a test of using local storage for tracking events and populating menus and tables. It is structured with two templates and one modal in HTML, which are used and populated by seven functions. It additionally has an eventListener in the app HTML. A basic array of events is hard coded, so the page is not empty upon first load. Let's dive in.
+</p>
 
 <h5>The Templates</h5>
+<p>
 The applet uses two templates, dropdown-template and table-row-template. The first is a single line, a 'li' tag encasing an anchor tag with a  dropdown-item class and onclick that calls filterEvents and passes itself as an argument. It is used by buildDropdown() to build the dropdown menu. The second template is a 'tr' tag encasing mulitple 'td' tags with data-ids matching the properties of event objects and is used in displayEvents() to build the table displaying events at the bottom of the applet page.
+</p>
 
 <h5>The Event Listener</h5>
+<p>
 The applet's HTML has an event listener embedded using a script tag. The script gets the form located in the applet's new event modal, and it listens for a submit event. Once triggered, it prevents the page from reloading and calls saveEvent().
+</p>
 
 <h5>buildDropdown()</h5>
 <p>
 This function's purpose is to build the dropdown list using the cities in the data and is also the entry point for the applet and is called when the HTML body finishes loading. It begins by getting the list of events from getEvents(), creating an array of the cities from those events, and creating a set of the unique cities in that array. It then finds where the template for dropdown choices, the div where those choices should be placed on the page, and wipes that div's HTML clean. Working with that blank slate, the function clones the dropdown choice template, builds it up using the set of unique cities, and appends them to the previously cleaned div. Each of the dropdown choices has an onclick attribute that will call filterEvents() and pass itself as an argument when selected.
 </p>
-<p>Outside of its basic purpose, this function also controls the rest of the applet by populating the table of events and stats for those events by calling displayStats() and displayEvents() and passing each the list of current events. It also finds the div that reflects the name of the current selection for stats and uses DOM manipulation to set it to 'All'.
+<p>
+Outside of its basic purpose, this function also controls the rest of the applet by populating the table of events and stats for those events by calling displayStats() and displayEvents() and passing each the list of current events. It also finds the div that reflects the name of the current selection for stats and uses DOM manipulation to set it to 'All'.
 </p>
 
 <h5>getEvents()</h5>

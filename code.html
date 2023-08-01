@@ -239,70 +239,141 @@
                 </pre>
             </div>
             <div class="col-12 col-lg-4">
-                <p>This applet is a test of using local storage for tracking events and populating menus and tables. It is structured with two templates and one modal in HTML, which are used and populated by seven functions. It additionally has an eventListener in the app HTML. A basic array of events is hard coded, so the page is not empty upon first load. Let's dive in.</p>
+                <p>
+                    This applet is a test of using local storage for tracking events and populating menus and tables. It
+                    is structured with two templates and one modal in HTML, which are used and populated by seven
+                    functions. It additionally has an eventListener in the app HTML. A basic array of events is hard
+                    coded, so the page is not empty upon first load. Let's dive in.
+                </p>
 
                 <h5>The Templates</h5>
-                The applet uses two templates, dropdown-template and table-row-template. The first is a single line, a 'li' tag encasing an anchor tag with a  dropdown-item class and onclick that calls filterEvents and passes itself as an argument. It is used by buildDropdown() to build the dropdown menu. The second template is a 'tr' tag encasing mulitple 'td' tags with data-ids matching the properties of event objects and is used in displayEvents() to build the table displaying events at the bottom of the applet page.
+                <p>
+                    The applet uses two templates, dropdown-template and table-row-template. The first is a single line,
+                    a 'li' tag encasing an anchor tag with a dropdown-item class and onclick that calls filterEvents and
+                    passes itself as an argument. It is used by buildDropdown() to build the dropdown menu. The second
+                    template is a 'tr' tag encasing mulitple 'td' tags with data-ids matching the properties of event
+                    objects and is used in displayEvents() to build the table displaying events at the bottom of the
+                    applet page.
+                </p>
 
                 <h5>The Event Listener</h5>
-                The applet's HTML has an event listener embedded using a script tag. The script gets the form located in the applet's new event modal, and it listens for a submit event. Once triggered, it prevents the page from reloading and calls saveEvent().
+                <p>
+                    The applet's HTML has an event listener embedded using a script tag. The script gets the form
+                    located
+                    in the applet's new event modal, and it listens for a submit event. Once triggered, it prevents the
+                    page from reloading and calls saveEvent().
+                </p>
 
                 <h5>buildDropdown()</h5>
                 <p>
-                This function's purpose is to build the dropdown list using the cities in the data and is also the entry point for the applet and is called when the HTML body finishes loading. It begins by getting the list of events from getEvents(), creating an array of the cities from those events, and creating a set of the unique cities in that array. It then finds where the template for dropdown choices, the div where those choices should be placed on the page, and wipes that div's HTML clean. Working with that blank slate, the function clones the dropdown choice template, builds it up using the set of unique cities, and appends them to the previously cleaned div. Each of the dropdown choices has an onclick attribute that will call filterEvents() and pass itself as an argument when selected.
+                    This function's purpose is to build the dropdown list using the cities in the data and is also the
+                    entry point for the applet and is called when the HTML body finishes loading. It begins by getting
+                    the list of events from getEvents(), creating an array of the cities from those events, and creating
+                    a set of the unique cities in that array. It then finds where the template for dropdown choices, the
+                    div where those choices should be placed on the page, and wipes that div's HTML clean. Working with
+                    that blank slate, the function clones the dropdown choice template, builds it up using the set of
+                    unique cities, and appends them to the previously cleaned div. Each of the dropdown choices has an
+                    onclick attribute that will call filterEvents() and pass itself as an argument when selected.
                 </p>
-                <p>Outside of its basic purpose, this function also controls the rest of the applet by populating the table of events and stats for those events by calling displayStats() and displayEvents() and passing each the list of current events. It also finds the div that reflects the name of the current selection for stats and uses DOM manipulation to set it to 'All'.
+                <p>
+                    Outside of its basic purpose, this function also controls the rest of the applet by populating the
+                    table of events and stats for those events by calling displayStats() and displayEvents() and passing
+                    each the list of current events. It also finds the div that reflects the name of the current
+                    selection for stats and uses DOM manipulation to set it to 'All'.
                 </p>
 
                 <h5>getEvents()</h5>
                 <p>
-                This function's purpose is retreieving the local storage of events. It declares a variable and attempts to assign it the parsed JSON of events in local storage. If there is nothing, the variable will be blank, and the function will assign the variable to the default, hard-coded constant array of event objects. and place the same into local storage. In either case, it returns the variable of events.
+                    This function's purpose is retreieving the local storage of events. It declares a variable and
+                    attempts to assign it the parsed JSON of events in local storage. If there is nothing, the variable
+                    will be blank, and the function will assign the variable to the default, hard-coded constant array
+                    of event objects. and place the same into local storage. In either case, it returns the variable of
+                    events.
                 </p>
 
                 <h5>displayEvents()</h5>
                 <p>
-                This function's purpose is to populate the table of event data at the bottom of the applet. It accepts as a parameter 'events', the array of objects representing the events to be displayed. It then begins by finding the table, the table row template it will use to populate the table, and wiping the table clean. It then runs a forEach loop of events.
+                    This function's purpose is to populate the table of event data at the bottom of the applet. It
+                    accepts as a parameter 'events', the array of objects representing the events to be displayed. It
+                    then begins by finding the table, the table row template it will use to populate the table, and
+                    wiping the table clean. It then runs a forEach loop of events.
                 </p>
                 <p>
-                The forEach loop begins by cloning the table row template. It then runs a nested forEach loop of the current event's properties, which takes the value of each property, formats it, and adds it to the correct location in the clone. Once that loop is complete, the original loop completes by appending the template clone to the table of events identified earlier.
+                    The forEach loop begins by cloning the table row template. It then runs a nested forEach loop of the
+                    current event's properties, which takes the value of each property, formats it, and adds it to the
+                    correct location in the clone. Once that loop is complete, the original loop completes by appending
+                    the template clone to the table of events identified earlier.
                 </p>
 
                 <h5>displayStats()</h5>
                 <p>
-                This fuction's purpose is to populate the table of stats for the group of events currently selected in the dropdown menu. It accepts as a parameter 'events', the array of objects representing the events to determine the stats of. It then begins by declaring 'total' and assigning it the value of 0, declaring 'min' and assigning it the attendance count of the first event in events, then declaring 'max' and assigning it the value of min.
+                    This fuction's purpose is to populate the table of stats for the group of events currently selected
+                    in the dropdown menu. It accepts as a parameter 'events', the array of objects representing the
+                    events to determine the stats of. It then begins by declaring 'total' and assigning it the value of
+                    0, declaring 'min' and assigning it the attendance count of the first event in events, then
+                    declaring 'max' and assigning it the value of min.
                 </p>
                 <p>
-                The function then uses a for-loop to determine what the values of total, min, and max should be based on the passed array of event objects. It adds each events attendance to total, sets max to the attendance count of any event larger than its current value, and sets min to the attendance count of any event smaller than its current value. Once the loop is complete, the function determines the average attendance by dividing total by the length of the events array and rounding. It then formats the averague attendance, total, min, and max, and uses DOM manipulation to change the HTML on the applet page to display the values. 
+                    The function then uses a for-loop to determine what the values of total, min, and max should be
+                    based on the passed array of event objects. It adds each events attendance to total, sets max to the
+                    attendance count of any event larger than its current value, and sets min to the attendance count of
+                    any event smaller than its current value. Once the loop is complete, the function determines the
+                    average attendance by dividing total by the length of the events array and rounding. It then formats
+                    the averague attendance, total, min, and max, and uses DOM manipulation to change the HTML on the
+                    applet page to display the values.
                 </p>
 
                 <h5>filterEvents()</h5>
                 <p>
-                This function's purpose is to change the information on the page to the events only for the city chosen in the dropdown menu. It accepts as a parameter 'dropdownItemClicked,' which is the dropdown choice that was selected and called filterEvents() in the first place.
+                    This function's purpose is to change the information on the page to the events only for the city
+                    chosen in the dropdown menu. It accepts as a parameter 'dropdownItemClicked,' which is the dropdown
+                    choice that was selected and called filterEvents() in the first place.
                 </p>
                 <p>
-                The function begins by assigning the name of the currently selected city to cityName by checking the innerText of the passed parameter. It then gets the array of all event objects using getEvents() and declares a blank array, 'filteredEvents'. The function next finds the div that displays the name of the current selection in the stats table and uses DOM manipulation to set it to the value of cityName.
+                    The function begins by assigning the name of the currently selected city to cityName by checking the
+                    innerText of the passed parameter. It then gets the array of all event objects using getEvents() and
+                    declares a blank array, 'filteredEvents'. The function next finds the div that displays the name of
+                    the current selection in the stats table and uses DOM manipulation to set it to the value of
+                    cityName.
                 </p>
                 <p>
-                After that preparation, the function calls the filter() method of the array of event objects, passing two conditions to check against, and assigning the result to filteredEvents. The first is whether cityName is 'All' (i.e., the option 'All' was chosen in the dropdown); if true, all events will be "filtered" into filteredEvents. If the first condition is false, filter() checks each event's city property for matches against cityName and assigns them to filteredEvents if true.
+                    After that preparation, the function calls the filter() method of the array of event objects,
+                    passing two conditions to check against, and assigning the result to filteredEvents. The first is
+                    whether cityName is 'All' (i.e., the option 'All' was chosen in the dropdown); if true, all events
+                    will be "filtered" into filteredEvents. If the first condition is false, filter() checks each
+                    event's city property for matches against cityName and assigns them to filteredEvents if true.
                 </p>
                 <p>
-                Once filteredList has been assembled, the function calls displayStats() and displayEvents(), passing filteredList to each of them. This will change the applet HTML to display only those events in filteredList instead of the default of all events from when the page initially loaded.
+                    Once filteredList has been assembled, the function calls displayStats() and displayEvents(), passing
+                    filteredList to each of them. This will change the applet HTML to display only those events in
+                    filteredList instead of the default of all events from when the page initially loaded.
                 </p>
 
                 <h5>saveEvent()</h5>
                 <p>
-                This function's purpose is to add new events to the array of event objects stored in local memory. The function is initiated by an event listener in the HTML that watches whether the form in the new event modal is submitted, and it will not trigger if all fields are filled out. Once called, the function retrieves the information in the form fields and applies some formatting, converting the value of the attendance field to an integer and formatting the date field value to match the user's locale.
+                    This function's purpose is to add new events to the array of event objects stored in local memory.
+                    The function is initiated by an event listener in the HTML that watches whether the form in the new
+                    event modal is submitted, and it will not trigger if all fields are filled out. Once called, the
+                    function retrieves the information in the form fields and applies some formatting, converting the
+                    value of the attendance field to an integer and formatting the date field value to match the user's
+                    locale.
                 </p>
                 <p>
-                Once all form field values have been retrieved and formatted, newEvent is declared as an object with the values as its properties. allEvents is declared and set to the array of all event objects by calling getEvents(), newEvent is pushed into it, then allEvents is strigified and placed in local storage.
+                    Once all form field values have been retrieved and formatted, newEvent is declared as an object with
+                    the values as its properties. allEvents is declared and set to the array of all event objects by
+                    calling getEvents(), newEvent is pushed into it, then allEvents is strigified and placed in local
+                    storage.
                 </p>
                 <p>
-                After the new event is added to local storage, the form in the new event modal is located by ID and reset. Finally, the function calls buildDropdown() to put all events into the HTML on the applet page and also calls closeModal() to close the new event modal.
+                    After the new event is added to local storage, the form in the new event modal is located by ID and
+                    reset. Finally, the function calls buildDropdown() to put all events into the HTML on the applet
+                    page and also calls closeModal() to close the new event modal.
                 </p>
 
                 <h5>closeModal</h5>
                 <p>
-                The simplest of the applet functions, this function locates the modal instance of the event modal and calls its hide() method to close the modal.
+                    The simplest of the applet functions, this function locates the modal instance of the event modal
+                    and calls its hide() method to close the modal.
                 </p>
             </div>
         </div>
