@@ -4,7 +4,7 @@
 The applet uses two templates, dropdown-template and table-row-template. The first is a single line, a 'li' tag encasing an anchor tag with a  dropdown-item class and onclick that calls filterEvents and passes itself as an argument. It is used by buildDropdown() to build the dropdown menu. The second template is a 'tr' tag encasing mulitple 'td' tags with data-ids matching the properties of event objects and is used in displayEvents() to build the table displaying events at the bottom of the applet page.
 
 <h5>The Event Listener</h5>
-The applet's HTML has an event listener embedded using a script tag. The script gets the form located in the applet's new event modal, and it listens for a submit event. Once triggered, it prevents the page from reloading and calls saveEvent.
+The applet's HTML has an event listener embedded using a script tag. The script gets the form located in the applet's new event modal, and it listens for a submit event. Once triggered, it prevents the page from reloading and calls saveEvent().
 
 <h5>buildDropdown()</h5>
 <p>
